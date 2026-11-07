@@ -1,0 +1,152 @@
+{
+  "rail_now": 1794076547.194,
+  "finalized_block": 54425367,
+  "finalized_time": 1794075449,
+  "wallets": 14,
+  "lag_seconds_min": 168538,
+  "lag_seconds_max": 264404,
+  "written_last_cycle": 0,
+  "stale": true,
+  "rows": [
+    {
+      "funder": "0xe3aa1174f773cb266c69e6be909e9e777b50c87d",
+      "last_block": 53582680,
+      "mark_time": 1793906911,
+      "lag_seconds": 168538,
+      "blocks_behind": 842687,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 1776,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x3853965505b92bcef5b6a20fcca65c758f76736a",
+      "last_block": 53563973,
+      "mark_time": 1793903170,
+      "lag_seconds": 172279,
+      "blocks_behind": 861394,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 1181,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x5ea77a35a04f38c4806003658465cf9a7d999475",
+      "last_block": 53563661,
+      "mark_time": 1793903107,
+      "lag_seconds": 172342,
+      "blocks_behind": 861706,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 2686,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x0e61fdea16a1f81bdac4ec134d1a613552b59376",
+      "last_block": 53554429,
+      "mark_time": 1793898205,
+      "lag_seconds": 177244,
+      "blocks_behind": 870938,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 2082,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x84a18ac9d26c5ce70689c9b181a4a6155598fe8b",
+      "last_block": 53551464,
+      "mark_time": 1793892275,
+      "lag_seconds": 183174,
+      "blocks_behind": 873903,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 4169,
+      "error": "page 53551465-53552464 threw: Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x927b3f5d2fdad280733b681ad16f8586acf0ca9b",
+      "last_block": 53549999,
+      "mark_time": 1793889345,
+      "lag_seconds": 186104,
+      "blocks_behind": 875368,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 3578,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0xd4f4fcd85b3b562631774246ad99f364e22043c4",
+      "last_block": 53542899,
+      "mark_time": 1793875145,
+      "lag_seconds": 200304,
+      "blocks_behind": 882468,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 882,
+      "error": "page 53542900-53543899 threw: Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0xfe49b37c0cefd15239300bd1bfed9d54c44c4ee9",
+      "last_block": 53539730,
+      "mark_time": 1793868807,
+      "lag_seconds": 206642,
+      "blocks_behind": 885637,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 2364,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x465bcb555de8e2634c529b12c7ee5dfc733ee4f0",
+      "last_block": 53533357,
+      "mark_time": 1793856061,
+      "lag_seconds": 219388,
+      "blocks_behind": 892010,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 2983,
+      "error": "page 53533358-53534357 threw: Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x1d9bedc96c2a473eeaa2055162294d3e0eb6cacc",
+      "last_block": 53531162,
+      "mark_time": 1793851671,
+      "lag_seconds": 223778,
+      "blocks_behind": 894205,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 3284,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0xa7f7985eb19b8c44f12a0654df1ef89d1dd527c9",
+      "last_block": 53526666,
+      "mark_time": 1793842679,
+      "lag_seconds": 232770,
+      "blocks_behind": 898701,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 1483,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0x93e5e2fe82e2f7f23d8063cb039dfcb98806fe0d",
+      "last_block": 53523723,
+      "mark_time": 1793836793,
+      "lag_seconds": 238656,
+      "blocks_behind": 901644,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 274,
+      "error": null
+    },
+    {
+      "funder": "0x9f8951cb8b060f52fdf87297b3c5b00f7aa18f52",
+      "last_block": 53520572,
+      "mark_time": 1793830491,
+      "lag_seconds": 244958,
+      "blocks_behind": 904795,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 578,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    },
+    {
+      "funder": "0xf32c99ae17c17022889b2288749ca433a2504211",
+      "last_block": 53510849,
+      "mark_time": 1793811045,
+      "lag_seconds": 264404,
+      "blocks_behind": 914518,
+      "rows_last_cycle": 0,
+      "updated_age_seconds": 3887,
+      "error": "no two providers agreed over 1000 blocks (1 answered): Error: rpc unavailable (HTTP 429)"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+registry now      2026-11-07 18:35:51Z
+Base finalized    block 54,425,367  2026-11-07 18:17:29Z
+
+funder wallet                                 mark block         mark time    behind   days
+0xe3aa1174f773cb266c69e6be909e9e777b50c87d    53,582,680  2026-11-05 19:28   842,687    2.0
+0x3853965505b92bcef5b6a20fcca65c758f76736a    53,563,973  2026-11-05 18:26   861,394    2.0
+0x5ea77a35a04f38c4806003658465cf9a7d999475    53,563,661  2026-11-05 18:25   861,706    2.0
+0x0e61fdea16a1f81bdac4ec134d1a613552b59376    53,554,429  2026-11-05 17:03   870,938    2.1
+0x84a18ac9d26c5ce70689c9b181a4a6155598fe8b    53,551,464  2026-11-05 15:24   873,903    2.1
+0x927b3f5d2fdad280733b681ad16f8586acf0ca9b    53,549,999  2026-11-05 14:35   875,368    2.2
+0xd4f4fcd85b3b562631774246ad99f364e22043c4    53,542,899  2026-11-05 10:39   882,468    2.3
+0xfe49b37c0cefd15239300bd1bfed9d54c44c4ee9    53,539,730  2026-11-05 08:53   885,637    2.4
+0x465bcb555de8e2634c529b12c7ee5dfc733ee4f0    53,533,357  2026-11-05 05:21   892,010    2.5
+0x1d9bedc96c2a473eeaa2055162294d3e0eb6cacc    53,531,162  2026-11-05 04:07   894,205    2.6
+0xa7f7985eb19b8c44f12a0654df1ef89d1dd527c9    53,526,666  2026-11-05 01:37   898,701    2.7
+0x93e5e2fe82e2f7f23d8063cb039dfcb98806fe0d    53,523,723  2026-11-04 23:59   901,644    2.8
+0x9f8951cb8b060f52fdf87297b3c5b00f7aa18f52    53,520,572  2026-11-04 22:14   904,795    2.8
+0xf32c99ae17c17022889b2288749ca433a2504211    53,510,849  2026-11-04 16:50   914,518    3.1
+
+wallets: 14   lag: 2.0-3.1 days
+rows written in each wallet's last cycle: 0 of 14
+
+STALE: worst mark is 73.4 h behind the finalized head (threshold 1.0 h).
+A count of 0 observed payments on a listing whose funder wallet is marked
+before the listing's posting block is not evidence of non-payment.
