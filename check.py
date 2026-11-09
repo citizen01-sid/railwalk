@@ -84,6 +84,22 @@ def two_sources(method: str, params: list):
     return vals[0]
 
 
+
+def observed_stride(rows) -> int:
+    """The widest block range actually served in last_range_*.
+
+    The stride is a fact the registry publishes about itself (only written on
+    the success path), so it is READ, never assumed. Falls back to 1,000 -- the
+    unkeyed OBSERVER_BLOCKS_PER_CYCLE -- when no mark carries a range yet.
+    """
+    widest = 0
+    for r in rows:
+        fr, to = r.get("last_range_from"), r.get("last_range_to")
+        if fr is not None and to is not None and to >= fr:
+            widest = max(widest, to - fr + 1)
+    return widest if widest > 0 else 1000
+
+
 def block_time(number: int) -> int:
     block = two_sources("eth_getBlockByNumber", [hex(number), False])
     if not isinstance(block, dict) or "timestamp" not in block:
@@ -145,6 +161,8 @@ def main() -> int:
                 "rows_last_cycle": m.get("last_range_rows"),
                 "updated_age_seconds": round(now_rail - m["updated_at"] / 1000),
                 "error": m.get("last_error"),
+                "last_range_from": m.get("last_range_from"),
+                "last_range_to": m.get("last_range_to"),
             }
         )
     rows.sort(key=lambda r: r["lag_seconds"])
@@ -185,6 +203,24 @@ def main() -> int:
     print()
     print(f"wallets: {len(rows)}   lag: {min(lags) / 86400:.1f}-{max(lags) / 86400:.1f} days")
     print(f"rows written in each wallet's last cycle: {len(advanced)} of {len(rows)}")
+    print()
+    # Per-wallet coverage, which is the quantity that decides whether the lag
+    # can shrink. The cron runs every 5 minutes and walks ONE wallet per cycle
+    # (observer.ts nextWallet: ORDER BY COALESCE(m.updated_at,0) ASC LIMIT 1),
+    # so each wallet is asked 288/len(rows) times a day, NOT 288 times. Stating
+    # 288 x stride as "the walk's capacity" is the aggregate of a walk that gets
+    # every cycle for one wallet; it overstates each wallet by the wallet count.
+    n = len(rows)
+    per_wallet_cycles = 288.0 / n
+    stride = observed_stride(rows)
+    prod = 432_000  # blocks/day at the 0.2 s cadence measured 2026-11-05
+    ceiling = per_wallet_cycles * stride
+    print(f"rotation: {n} wallets, one per 5-min cycle -> {per_wallet_cycles:.2f} cycles/wallet/day")
+    print(f"widest range actually walked: {stride:,} blocks (read from last_range_*, not assumed)")
+    print(f"per-wallet ceiling at that stride: {ceiling:,.0f} blk/day = {ceiling / prod * 100:.1f}% of production")
+    if ceiling < prod:
+        print(f"=> even with every cycle agreeing, each wallet's lag grows "
+              f"{(1 - ceiling / prod) * 24:.1f} h/day")
     print()
     if stale:
         print(f"STALE: worst mark is {max(lags) / 3600:.1f} h behind the finalized head "

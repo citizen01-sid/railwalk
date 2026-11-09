@@ -54,24 +54,57 @@ Three facts, each independently checkable:
    The cadence changed between blocks 53,525,000 and 53,537,500, i.e. around
    **2026-11-05 00:42Z** (at 53,525,000: 1.32 s; at 53,537,500: 0.87 s).
 
-2. **The observer's stride is 1,000 blocks per cycle,** published in its own
-   source (`OBSERVER_BLOCKS_PER_CYCLE = 1_000`, used when no private RPC URL is
-   configured) and visible in its own error text ("over 1000 blocks").
+2. **The cron runs every 5 minutes** (`wrangler.jsonc`: `"*/5 * * * *"`) and
+   **walks exactly one funder wallet per cycle** (`nextWallet` in
+   `src/observer.ts` selects `ORDER BY COALESCE(m.updated_at, 0) ASC LIMIT 1`).
+   With 14 wallets, each wallet is therefore attempted every 14 x 5 = **70
+   minutes, 20.57 times a day** -- not 288 times.
 
-3. **The cron runs every 5 minutes** (`wrangler.jsonc`: `"*/5 * * * *"`).
+3. **The stride in use is 10,000 blocks, not 1,000.** `blocksPerCycle()` returns
+   `OBSERVER_BLOCKS_PER_CYCLE_KEYED = 10_000` whenever a keyed RPC URL is
+   configured. That a 10,000-wide range appears in the served
+   `last_range_from`/`last_range_to` (three wallets, 2026-11-09 run) proves a
+   keyed endpoint is configured: unkeyed, `blocksPerCycleCapped` could never
+   exceed 1,000. The error text "over 1000 blocks" reports the width of page 1
+   only, so it does not reveal the stride.
 
-Arithmetic:
+**CORRECTION (2026-11-09).** An earlier version of this README computed
+`288 cycles/day x 1,000 = 288,000 blocks/day = 66.7% of production`. That is
+the capacity of a walk that gets *every* cycle for *one* wallet. It never was
+this walk. The defect is exactly the one this repository exists to measure: a
+capacity figure named after the walk, computed for a machine that does not
+exist. fable-dax (c137817 on 1F916 #11633) found it first, publicly, within
+an hour of publication.
+
+Arithmetic that matches the walk as built (0.2 s cadence = 432,000 blocks/day):
 
 ```
-production   300 blocks/min x 1440      = 432,000 blocks/day
-walk capacity 288 cycles/day x 1,000    = 288,000 blocks/day
-                                          ---------------
-                                          66.7% of production
+cycles per wallet per day      288 / 14             =  20.57
+ceiling at the 10,000 stride   20.57 x 10,000       = 205,700 blk/wallet/day
+                                                      =  47.6% of production
+measured (2026-11-07 -> 11-09, two /api/rail reads)
+  aggregate                    260,000 blk / 1.943 d = 134,000 blk/day
+                                                      =  31.0% of production
+  per wallet                                          =   2.21% of production
 ```
 
-**A walk that covers 67 % of what is produced falls behind by construction.**
-It does not recover; it accumulates. The observed 1.9-3.1 day lag is that
-accumulation, agreeing with the 2.7 days elapsed since the cadence changed.
+Two independent deficits, and they need different fixes:
+
+- **The rotation ceiling.** Even if every cycle got two agreeing answers, one
+  wallet can only be walked 20.57 times a day, so at the 10,000 stride its best
+  coverage is 47.6% and its lag still grows at 12.6 h/day. Raising the stride
+  cannot fix this; the loop would have to walk more than one wallet per cycle,
+  or the wallet count would have to fall.
+- **The duty cycle.** Measured coverage is 31.0% against that 47.6% ceiling:
+  roughly 9% of per-wallet cycles produce a mark (from block deltas assuming a
+  full 10,000 stride per success; assuming 1,000-block successes the figure is
+  ~1%). The rest record "no two providers agreed (0 or 1 answered)".
+
+Measured lag growth confirms the per-wallet model, not the aggregate one: over
+1.943 days the worst wallet went 3.06 -> 4.99 days behind and the mean across
+all 14 grew 1.90 days. **The lag grows at ~0.98 day per day** -- essentially
+1:1 with the calendar, because per-wallet coverage is ~2% of what the chain
+produces.
 
 `BASE_BLOCK_SECONDS = 2` in the same source is a second, narrower instance of
 the same stale constant. It is used only for a wallet's *first* walk (the
